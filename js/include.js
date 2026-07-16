@@ -6,7 +6,7 @@
   await Promise.all(Array.from(slots).map(async (slot) => {
     const url = slot.getAttribute('data-include');
     try {
-      const res = await fetch(url);
+      const res = await fetch(url, { cache: 'no-cache' });
       if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
       slot.outerHTML = await res.text();
     } catch (err) {
@@ -22,4 +22,11 @@
   const script = document.createElement('script');
   script.src = 'js/app.js';
   document.body.appendChild(script);
+
+  // Deep-link fix: the target section didn't exist when the browser first tried to
+  // jump to #hash (sections load async), so scroll to it now that it's in the DOM.
+  if (location.hash.length > 1) {
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (target) requestAnimationFrame(() => target.scrollIntoView());
+  }
 })();

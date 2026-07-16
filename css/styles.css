@@ -22,7 +22,7 @@
   --c-panel2: 234 240 233;
   --c-border: 204 216 205;
   --c-green: 5 133 88;
-  --c-dim: 90 108 96;
+  --c-dim: 74 90 80;
   --c-muted: 150 166 153;
   --c-text: 29 43 36;
   --c-bright: 8 20 13;
@@ -42,6 +42,9 @@ body { transition: background-color .45s ease, color .45s ease; }
 ::-webkit-scrollbar-thumb { background: rgb(var(--c-border)); border-radius: 6px; }
 ::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-muted)); }
 html { scrollbar-color: rgb(var(--c-border)) rgb(var(--c-bg)); scrollbar-width: thin; }
+
+/* Offset anchor jumps so the fixed 56px header doesn't cover section headings */
+html { scroll-padding-top: 4rem; }
 
 /* Blinking terminal cursor */
 .cursor {
@@ -93,16 +96,17 @@ body::before {
 }
 
 .nav-link.active { color: rgb(var(--c-green)); }
-.nav-link.active::before { opacity: 1; }
 
-a.tech-tile:hover { border-color: rgb(var(--c-green) / .4); box-shadow: 0 0 0 1px rgb(var(--c-green) / .13), 0 8px 30px -12px rgb(var(--c-green) / .33); }
+.tech-tile:hover {
+  transform: translateY(-3px);
+  border-color: rgb(var(--c-green) / .55);
+  background-color: rgb(var(--c-green) / .06);
+  box-shadow: 0 0 0 1px rgb(var(--c-green) / .18), 0 12px 32px -14px rgb(var(--c-green) / .45);
+}
 
 /* Card hover lift */
 .card-lift { transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
 .card-lift:hover { transform: translateY(-4px); border-color: rgb(var(--c-green) / .33); box-shadow: 0 18px 50px -24px rgb(var(--c-green) / .4); }
-
-details > summary { list-style: none; }
-details > summary::-webkit-details-marker { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
