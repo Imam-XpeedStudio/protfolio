@@ -164,7 +164,12 @@ sections.forEach(s => spy.observe(s));
     cols = Math.ceil(innerWidth / fontSize);
     drops = Array(cols).fill(0).map(() => (Math.random() * -50) | 0);
   }
-  function draw() {
+  let lastDraw = 0;
+  const drawInterval = 76; // ms between steps — higher = slower rain (was ~16ms / 60fps)
+  function draw(now) {
+    raf = requestAnimationFrame(draw);
+    if (now - lastDraw < drawInterval) return;   // throttle to slow the fall
+    lastDraw = now;
     ctx.fillStyle = 'rgba(' + bg + ',0.10)';
     ctx.fillRect(0, 0, innerWidth, innerHeight);
     ctx.font = fontSize + 'px "JetBrains Mono", monospace';
@@ -175,7 +180,6 @@ sections.forEach(s => spy.observe(s));
       if (drops[i] * fontSize > innerHeight && Math.random() > 0.975) drops[i] = 0;
       drops[i]++;
     }
-    raf = requestAnimationFrame(draw);
   }
   function setButton(on) {
     btn.setAttribute('aria-pressed', on ? 'true' : 'false');

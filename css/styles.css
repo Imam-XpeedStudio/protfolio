@@ -63,9 +63,9 @@ html { scroll-padding-top: 4rem; }
 /* Matrix-rain background canvas */
 #matrix {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  opacity: .40; transition: opacity .6s ease;
+  opacity: .25; transition: opacity .6s ease;
 }
-:root.light #matrix { opacity: .20; }
+:root.light #matrix { opacity: .12; }
 #matrix.off { opacity: 0; }
 
 /* Subtle CRT scanlines + vignette over the whole page */
