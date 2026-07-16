@@ -4,8 +4,6 @@ A single-page, terminal-themed developer portfolio. Built with **HTML + Tailwind
 
 Features a **Matrix-rain** background you can start/stop (nav button) and a **dark / light theme** toggle — both remember your choice via `localStorage`.
 
-Inspired in format by [sumonselim.com](https://www.sumonselim.com/) (terminal / CLI aesthetic).
-
 ## Project structure
 
 Each section lives in its **own file**. `index.html` is a small shell that loads them:
