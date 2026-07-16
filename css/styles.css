@@ -95,6 +95,12 @@ body::before {
   animation: blink 1.05s steps(1) infinite;
 }
 
+/* Email modal entrance */
+.email-modal:not(.hidden) { animation: emailFade .18s ease both; }
+.email-modal:not(.hidden) .email-modal__panel { animation: emailPop .22s ease both; }
+@keyframes emailFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes emailPop { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+
 .nav-link.active { color: rgb(var(--c-green)); }
 
 .tech-tile:hover {

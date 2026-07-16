@@ -251,3 +251,56 @@ sections.forEach(s => spy.observe(s));
   if (pref === 'on' || (pref === null && !reduce)) start(false);
   else stop(false);
 })();
+
+// ---- Email modal: warn before leaving, then pick a mail client ----
+(function () {
+  const modal = document.getElementById('emailModal');
+  if (!modal) return;
+  const stepWarn = modal.querySelector('[data-email-step="warn"]');
+  const stepOpts = modal.querySelector('[data-email-step="options"]');
+  const EMAIL = 'imamhosen737@gmail.com';
+  let lastFocus = null;
+
+  function open() {
+    lastFocus = document.activeElement;
+    modal.classList.remove('hidden');
+    stepWarn.classList.remove('hidden');
+    stepOpts.classList.add('hidden');
+    document.body.style.overflow = 'hidden';
+    const btn = modal.querySelector('[data-email-continue]');
+    if (btn) btn.focus();
+  }
+  function close() {
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  document.addEventListener('click', function (e) {
+    // open from any email trigger (hero button, contact row, "Email me")
+    const trigger = e.target.closest('.js-email');
+    if (trigger) { e.preventDefault(); open(); return; }
+
+    if (modal.classList.contains('hidden')) return;
+    if (e.target.closest('[data-email-close]')) { close(); return; }
+    if (e.target.closest('[data-email-continue]')) {
+      stepWarn.classList.add('hidden');
+      stepOpts.classList.remove('hidden');
+      return;
+    }
+    const copyBtn = e.target.closest('[data-email-copy]');
+    if (copyBtn) {
+      const label = copyBtn.querySelector('span:last-child');
+      const flash = () => { if (label) { const t = label.textContent; label.textContent = 'Copied!'; setTimeout(() => { label.textContent = t; }, 1500); } };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(EMAIL).then(flash).catch(flash);
+      else flash();
+      return;
+    }
+    // picked a provider — let the link/mailto fire, then close
+    if (e.target.closest('[data-email-option]')) { setTimeout(close, 120); }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) close();
+  });
+})();

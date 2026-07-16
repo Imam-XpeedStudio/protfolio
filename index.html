@@ -98,6 +98,55 @@
 
   <div data-include="sections/footer.html"></div>
 
+  <!-- ============ EMAIL MODAL ============ -->
+  <div id="emailModal" class="email-modal hidden fixed inset-0 z-[60] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-email-close></div>
+    <div class="email-modal__panel relative w-full max-w-md rounded-lg border border-term-border bg-term-panel shadow-2xl overflow-hidden">
+      <!-- terminal header -->
+      <div class="flex items-center gap-2 px-4 py-2.5 border-b border-term-border bg-term-panel2">
+        <span class="w-3 h-3 rounded-full bg-[#ff5f56]/70"></span>
+        <span class="w-3 h-3 rounded-full bg-[#ffbd2e]/70"></span>
+        <span class="w-3 h-3 rounded-full bg-term-green/70"></span>
+        <span class="ml-2 text-xs text-term-dim">send-mail.sh</span>
+        <button data-email-close class="ml-auto text-term-dim hover:text-term-green text-lg leading-none px-1" aria-label="Close dialog">✕</button>
+      </div>
+
+      <!-- Step 1: leave-site warning -->
+      <div data-email-step="warn" class="p-6 text-sm">
+        <p class="text-term-dim"><span class="text-term-green">$</span> ./send-mail.sh --to imam</p>
+        <h3 id="emailModalTitle" class="mt-4 text-lg font-bold text-term-bright flex items-center gap-2"><span aria-hidden="true">⚠</span> You're leaving this site</h3>
+        <p class="mt-2 text-term-text/90 leading-relaxed">This opens an external email service or app to write to me. My address will be pre-filled in the <span class="text-term-green">To</span> field.</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <button data-email-continue class="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-term-green text-term-bg font-medium hover:brightness-110 transition">continue →</button>
+          <button data-email-close class="inline-flex items-center gap-2 px-5 py-2.5 rounded border border-term-border text-term-dim hover:text-term-green hover:border-term-green/50 transition">cancel</button>
+        </div>
+      </div>
+
+      <!-- Step 2: choose mail client -->
+      <div data-email-step="options" class="hidden p-6 text-sm">
+        <p class="text-term-dim"><span class="text-term-green">&gt;</span> select a mail client</p>
+        <p class="mt-1 text-xs text-term-dim">Opens compose with <span class="text-term-green">imamhosen737@gmail.com</span> in To.</p>
+        <div class="mt-4 grid gap-2.5">
+          <a data-email-option href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=imamhosen737@gmail.com" target="_blank" rel="noopener" class="flex items-center gap-3 px-4 py-3 rounded-md border border-term-border bg-term-panel2 hover:border-term-green/50 hover:bg-term-green/5 transition group">
+            <span aria-hidden="true">📧</span><span class="text-term-text group-hover:text-term-green">Gmail</span><span class="ml-auto text-term-dim text-xs" aria-hidden="true">↗</span>
+          </a>
+          <a data-email-option href="https://outlook.live.com/mail/0/deeplink/compose?to=imamhosen737@gmail.com" target="_blank" rel="noopener" class="flex items-center gap-3 px-4 py-3 rounded-md border border-term-border bg-term-panel2 hover:border-term-green/50 hover:bg-term-green/5 transition group">
+            <span aria-hidden="true">📨</span><span class="text-term-text group-hover:text-term-green">Outlook</span><span class="ml-auto text-term-dim text-xs" aria-hidden="true">↗</span>
+          </a>
+          <a data-email-option href="https://compose.mail.yahoo.com/?to=imamhosen737@gmail.com" target="_blank" rel="noopener" class="flex items-center gap-3 px-4 py-3 rounded-md border border-term-border bg-term-panel2 hover:border-term-green/50 hover:bg-term-green/5 transition group">
+            <span aria-hidden="true">💌</span><span class="text-term-text group-hover:text-term-green">Yahoo Mail</span><span class="ml-auto text-term-dim text-xs" aria-hidden="true">↗</span>
+          </a>
+          <a data-email-option href="mailto:imamhosen737@gmail.com" class="flex items-center gap-3 px-4 py-3 rounded-md border border-term-border bg-term-panel2 hover:border-term-green/50 hover:bg-term-green/5 transition group">
+            <span aria-hidden="true">🖥️</span><span class="text-term-text group-hover:text-term-green">Default mail app</span><span class="ml-auto text-term-dim text-[10px]" aria-hidden="true">device chooser</span>
+          </a>
+          <button data-email-copy class="flex items-center gap-3 px-4 py-3 rounded-md border border-term-border bg-term-panel2 hover:border-term-green/50 hover:bg-term-green/5 transition group text-left">
+            <span aria-hidden="true">⧉</span><span class="text-term-text group-hover:text-term-green">Copy address</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Loader: pulls in the section files above, then runs js/app.js -->
   <script src="js/include.js"></script>
 </body>
