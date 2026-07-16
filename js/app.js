@@ -104,6 +104,35 @@ document.querySelectorAll('[data-terminal]').forEach(el => termIO.observe(el));
   io.observe(seq);
 })();
 
+// ---- Hero neofetch card: type each value sequentially; labels stay fixed ----
+(function () {
+  const card = document.querySelector('[data-neofetch]');
+  if (!card) return;
+  const targets = Array.from(card.querySelectorAll('[data-type]'));
+  if (!targets.length) return;
+  const endCursor = card.querySelector('.cursor');
+  // stash each value's full text, then blank it
+  targets.forEach(el => { el.dataset.full = el.textContent; el.textContent = ''; });
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { targets.forEach(el => { el.textContent = el.dataset.full; }); return; }
+
+  if (endCursor) endCursor.style.visibility = 'hidden';   // hide prompt cursor until done
+  let idx = 0;
+  (function next() {
+    if (idx >= targets.length) { if (endCursor) endCursor.style.visibility = ''; return; }
+    const el = targets[idx];
+    const full = el.dataset.full;
+    el.classList.add('typing');
+    let i = 0;
+    (function step() {
+      el.textContent = full.slice(0, i);
+      if (i < full.length) { i++; setTimeout(step, 18 + Math.random() * 26); }
+      else { el.classList.remove('typing'); idx++; setTimeout(next, 120); }
+    })();
+  })();
+})();
+
 // ---- Active nav highlight ----
 const sections = document.querySelectorAll('main section[id]');
 const navLinks = document.querySelectorAll('.nav-link');
