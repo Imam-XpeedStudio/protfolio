@@ -86,18 +86,11 @@ git push
 ## Local preview
 
 The site **must be served over `http://`** — double-clicking `index.html` will not work
-(the section files won't load). Pick one:
+(the section files won't load).
 
 **VS Code Live Server (recommended)**
 1. Install the **Live Server** extension (by Ritwick Dey).
 2. Right-click `index.html` → **Open with Live Server**. Auto-reloads on save.
-
-**Python (already on most systems)**
-```bash
-cd imam-portfolio
-python -m http.server 5500
-# then open http://localhost:5500/
-```
 
 ---
 
